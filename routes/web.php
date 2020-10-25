@@ -14,9 +14,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'element'], function () {
+    Route::get('/{id?}', 'ElementController@get');
+    Route::post('create', 'ElementController@create');
+    Route::post('update', 'ElementController@update');
+    Route::post('delete', 'ElementController@delete');
+});
+
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/{id?}', 'ProductController@get');
+    Route::post('create', 'ProductController@create');
+    Route::post('update', 'ProductController@update');
+    Route::post('delete', 'ProductController@delete');
+});
+
+Route::group(['prefix' => 'group'], function () {
+    Route::get('/{id?}', 'GroupController@get');
+    Route::post('create', 'GroupController@create');
+    Route::post('update', 'GroupController@update');
+    Route::post('delete', 'GroupController@delete');
+});
